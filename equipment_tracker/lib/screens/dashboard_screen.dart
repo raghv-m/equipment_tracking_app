@@ -21,7 +21,6 @@ class DashboardScreenState extends State<DashboardScreen> {
 
   final List<Widget> _screens = [
     EquipmentListScreen(),
-    QRScannerScreen(),
     const RequestsScreen(),
     ProfileScreen(),
   ];
@@ -81,7 +80,7 @@ class DashboardScreenState extends State<DashboardScreen> {
         onPressed: () {
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => const QRScannerScreen()),
+            MaterialPageRoute(builder: (context) => const EquipmentListScreen()),
           );
         },
         child: const Icon(Icons.qr_code_scanner, color: Colors.black),
