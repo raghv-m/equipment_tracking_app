@@ -1,11 +1,9 @@
-import 'profile_screen.dart';
 import 'request_screen.dart';
-import 'qr_scanner_screen.dart';
+import 'reports_screen.dart';
 import 'equipment_list_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import '../services/auth_provider.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class DashboardScreen extends StatefulWidget {
   const DashboardScreen({super.key});
@@ -22,7 +20,8 @@ class DashboardScreenState extends State<DashboardScreen> {
   final List<Widget> _screens = [
     EquipmentListScreen(),
     const RequestsScreen(),
-    ProfileScreen(),
+    const ReportsScreen(),
+    const ProfileScreen(), 
   ];
 
   void _onItemTapped(int index) {
@@ -31,11 +30,20 @@ class DashboardScreenState extends State<DashboardScreen> {
     });
   }
 
-  void _logout() async {
-    final authProvider = Provider.of<AuthProvider>(context, listen: false);
-    await authProvider.logout();
-    if (context.mounted) {
-      Navigator.pushReplacementNamed(context, '/auth');
+  /// ✅ **Logout Function (Corrected)**
+  Future<void> _logout() async {
+    try {
+      await FirebaseAuth.instance.signOut();
+      debugPrint("✅ [Auth] User logged out successfully.");
+
+      if (mounted) {
+        Navigator.pushReplacementNamed(context, '/auth');
+      }
+    } catch (e) {
+      debugPrint("❌ [Auth] Logout failed: $e");
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text("Logout failed: ${e.toString()}")),
+      );
     }
   }
 
@@ -47,8 +55,8 @@ class DashboardScreenState extends State<DashboardScreen> {
         title: Text(
           "Dashboard",
           style: GoogleFonts.roboto(
-            fontSize: 22, 
-            fontWeight: FontWeight.bold, 
+            fontSize: 22,
+            fontWeight: FontWeight.bold,
             color: craneYellow,
           ),
         ),
@@ -57,11 +65,11 @@ class DashboardScreenState extends State<DashboardScreen> {
         actions: [
           IconButton(
             icon: const Icon(Icons.logout, color: Colors.white),
-            onPressed: _logout,
+            onPressed: _logout, // ✅ Fixed Logout Call
           ),
         ],
       ),
-      body: _screens[_selectedIndex],
+      body: _screens[_selectedIndex], // ✅ Ensure all screens are present
       bottomNavigationBar: BottomNavigationBar(
         backgroundColor: Colors.black,
         selectedItemColor: craneYellow,
@@ -71,7 +79,7 @@ class DashboardScreenState extends State<DashboardScreen> {
         items: const [
           BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
           BottomNavigationBarItem(icon: Icon(Icons.qr_code_scanner), label: "Scan"),
-          BottomNavigationBarItem(icon: Icon(Icons.list), label: "Requests"),
+          BottomNavigationBarItem(icon: Icon(Icons.bar_chart), label: "Reports"),
           BottomNavigationBarItem(icon: Icon(Icons.person), label: "Profile"),
         ],
       ),

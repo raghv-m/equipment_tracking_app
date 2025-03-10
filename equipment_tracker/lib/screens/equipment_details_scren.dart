@@ -45,11 +45,11 @@ class EquipmentDetailsScreen extends StatelessWidget {
               style: GoogleFonts.roboto(fontSize: 16, color: Colors.white70)),
             const SizedBox(height: 20),
             Center(
-              child: ElevatedButton(
+              child: OutlinedButton(
                 onPressed: () {
                   Navigator.pop(context);
                 },
-                style: ElevatedButton.styleFrom(
+                style: OutlinedButton.styleFrom(
                   backgroundColor: craneYellow,
                   padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 15),
                   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),

@@ -8,9 +8,17 @@ class EquipmentProvider with ChangeNotifier {
 
   List<Map<String, dynamic>> _equipmentList = [];
   List<Map<String, dynamic>> get equipmentList => _equipmentList;
-
   EquipmentProvider() {
+     _initializeFirestorePersistence();
     _initializeEquipment();
+  }
+   Future<void> _initializeFirestorePersistence() async {
+    try  {
+       _firestore.settings = const Settings(persistenceEnabled: true);
+      debugPrint("✅ Firestore Offline Persistence Enabled.");
+    } catch (e) {
+      debugPrint("❌ Error enabling Firestore persistence: $e");
+    }
   }
 
   final List<Map<String, dynamic>> _preFilledEquipment = [
@@ -176,26 +184,30 @@ class EquipmentProvider with ChangeNotifier {
     }
   ];
 
-  void _initializeEquipment() async {
-    QuerySnapshot snapshot = await _firestore.collection('equipment').get();
+ void _initializeEquipment() async {
+    try {
+      QuerySnapshot snapshot = await _firestore.collection('equipment').get();
 
-    if (snapshot.docs.isEmpty) {
-      for (var equipment in _preFilledEquipment) {
-        equipment["qrCode"] = uuid.v4(); // Assign QR Code
-        await _firestore.collection('equipment').add(equipment);
+      if (snapshot.docs.isEmpty) {
+        for (var equipment in _preFilledEquipment) {
+          equipment["qrCode"] = uuid.v4(); // Assign QR Code
+          await _firestore.collection('equipment').add(equipment);
+        }
+        debugPrint("✅ Pre-filled equipment added to Firestore.");
+      } else {
+        debugPrint("✅ Equipment already exists in Firestore.");
       }
-      debugPrint("✅ Pre-filled equipment added to Firestore.");
-    } else {
-      debugPrint("✅ Equipment already exists in Firestore.");
-    }
 
-    _listenToEquipmentChanges();
+      _listenToEquipmentChanges();
+    } catch (e) {
+      debugPrint("❌ Error initializing equipment: $e");
+    }
   }
 
   void _listenToEquipmentChanges() {
     _firestore.collection('equipment').snapshots().listen((snapshot) {
       _equipmentList = snapshot.docs
-          .map((doc) => {...doc.data() as Map<String, dynamic>, 'id': doc.id})
+          .map((doc) => {...doc.data(), 'id': doc.id})
           .toList();
       notifyListeners();
       debugPrint("📢 Equipment list updated (Real-time Sync)");

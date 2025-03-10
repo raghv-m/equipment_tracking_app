@@ -3,17 +3,27 @@ import 'screens/auth_screen.dart';
 import 'screens/dashboard_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'services/reports_provider.dart';
 import 'services/notification_service.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'services/auth_provider.dart' as my_auth_provider;
 import 'services/equipment_provider.dart' as equipment_provider;
+
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(); 
   await NotificationService.initialize();
 
+  // Enable Firestore Offline Persistence
+  FirebaseFirestore.instance.settings = const Settings(
+    persistenceEnabled: true, 
+  );
+
+  log("✅ Firestore offline mode enabled");
+  
   runApp(const MyApp());
 }
 
@@ -35,6 +45,7 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
+        ChangeNotifierProvider<ReportsProvider>(create: (_) => ReportsProvider()),
         ChangeNotifierProvider<my_auth_provider.AuthProvider>(
           create: (_) => my_auth_provider.AuthProvider(),
         ),

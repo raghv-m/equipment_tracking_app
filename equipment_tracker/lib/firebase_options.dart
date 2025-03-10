@@ -53,11 +53,10 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyAsSE76VHz8UZMfyEZWJjSqvfiPOvJH8ys',
-    appId: '1:969069964065:android:bdf91c4e3841fd1f8c6c60',
-    messagingSenderId: '969069964065',
-    projectId: 'equipment-tracking-1c453',
-    storageBucket: 'equipment-tracking-1c453.firebasestorage.app',
+    apiKey: 'AIzaSyBKJluPWr9wxPda9w26TK9P-6w4ngaIVXU',
+    appId: '1:807601794433:android:98900df6cf7b195f050c80',
+    messagingSenderId: '807601794433',
+    projectId: 'eqt-tracker',
+    storageBucket: 'eqt-tracker.firebasestorage.app',
   );
-
 }

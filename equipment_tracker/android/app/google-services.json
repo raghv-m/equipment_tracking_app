@@ -1,13 +1,13 @@
 {
   "project_info": {
-    "project_number": "969069964065",
-    "project_id": "equipment-tracking-1c453",
-    "storage_bucket": "equipment-tracking-1c453.firebasestorage.app"
+    "project_number": "807601794433",
+    "project_id": "eqt-tracker",
+    "storage_bucket": "eqt-tracker.firebasestorage.app"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:969069964065:android:bdf91c4e3841fd1f8c6c60",
+        "mobilesdk_app_id": "1:807601794433:android:98900df6cf7b195f050c80",
         "android_client_info": {
           "package_name": "com.example.equipment_tracker"
         }
@@ -15,26 +15,7 @@
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyAsSE76VHz8UZMfyEZWJjSqvfiPOvJH8ys"
-        }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": []
-        }
-      }
-    },
-    {
-      "client_info": {
-        "mobilesdk_app_id": "1:969069964065:android:8e298a169c2b58ec8c6c60",
-        "android_client_info": {
-          "package_name": "com.example.equipment_tracking"
-        }
-      },
-      "oauth_client": [],
-      "api_key": [
-        {
-          "current_key": "AIzaSyAsSE76VHz8UZMfyEZWJjSqvfiPOvJH8ys"
+          "current_key": "AIzaSyBKJluPWr9wxPda9w26TK9P-6w4ngaIVXU"
         }
       ],
       "services": {

@@ -82,7 +82,7 @@ class EquipmentFormScreenState extends State<EquipmentFormScreen> {
                 decoration: const InputDecoration(labelText: "Location", labelStyle: TextStyle(color: Colors.amberAccent)),
               ),
               const SizedBox(height: 20),
-              ElevatedButton(onPressed: () => _submitForm(context), child:const Text("Save"))
+              OutlinedButton(onPressed: () => _submitForm(context), child:const Text("Save"))
             ],
           ),
         ),

@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import '../services/auth_provider.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+
 class AuthScreen extends StatefulWidget {
   const AuthScreen({super.key});
 
@@ -158,7 +159,7 @@ class AuthScreenState extends State<AuthScreen> with SingleTickerProviderStateMi
                         _buildTextField(controller: _passwordController, label: "Password", icon: Icons.lock, obscureText: true),
                         const SizedBox(height: 20),
 
-                        ElevatedButton(
+                        OutlinedButton(
                           onPressed: () => _submitForm(context),
                           style: _buttonStyle(),
                           child: Text(
@@ -228,7 +229,7 @@ class AuthScreenState extends State<AuthScreen> with SingleTickerProviderStateMi
   }
 
   ButtonStyle _buttonStyle() {
-    return ElevatedButton.styleFrom(
+    return OutlinedButton.styleFrom(
       backgroundColor: craneYellow,
       padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 15),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
